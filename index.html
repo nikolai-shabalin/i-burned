@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="number"] {
+      width: 80%;
+      padding: 15px;
+      font-size: 1.2em;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    input[type="number"]:focus {
+      border-color: #66afe9;
+    }
+
+    div {
+      text-align: center;
+      font-size: 2em;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+<section class="fat-burned">
+  <form action="#" method="post">
+    <input type="number" min="0" max="9999" placeholder="600" aria-label="calories expended">
+  </form>
+
+  <div>0 гр</div>
+</section>
+
+<section class="calories-burned">
+  <form action="#" method="post">
+    <input type="number" min="0" max="999" placeholder="30" aria-label="fat expended">
+  </form>
+
+  <div>0 калорий</div>
+</section>
+
+<script>
+  const CALORIE_TO_FAT_RATIO = 0.65;
+  const CALORIES_PER_GRAM_FAT = 7700;
+  const GRAMS_MULTIPLIER = 1000;
+
+  const round = (value) => Math.round(value);
+
+  const setupInputHandler = ({inputSelector, outputSelector, calculateFunction, unit}) => {
+    const inputElement = document.querySelector(inputSelector);
+    const outputElement = document.querySelector(outputSelector);
+
+    inputElement.addEventListener('input', (event) => {
+      const inputValue = parseFloat(event.target.value);
+      const validInput = isNaN(inputValue) ? 0 : inputValue;
+      const result = calculateFunction(validInput);
+      outputElement.textContent = `${result} ${unit}`;
+    });
+  };
+
+  const calculateBurnedFat = (caloriesExpended) => {
+    return round(((caloriesExpended * CALORIE_TO_FAT_RATIO) / CALORIES_PER_GRAM_FAT) * GRAMS_MULTIPLIER);
+  };
+
+  const calculateCaloriesToBurnFat = (fatInGrams) => {
+    return round((fatInGrams / GRAMS_MULTIPLIER) * CALORIES_PER_GRAM_FAT / CALORIE_TO_FAT_RATIO);
+  };
+
+  setupInputHandler({
+    inputSelector: '.fat-burned input',
+    outputSelector: '.fat-burned div',
+    calculateFunction: calculateBurnedFat,
+    unit: 'гр'
+  });
+
+  setupInputHandler({
+    inputSelector: '.calories-burned input',
+    outputSelector: '.calories-burned div',
+    calculateFunction: calculateCaloriesToBurnFat,
+    unit: 'калорий'
+  });
+
+</script>
+</body>
+</html>
