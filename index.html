@@ -45,18 +45,18 @@
 <body>
 <section class="fat-burned">
   <form action="#" method="post">
-    <input type="number" min="0" max="9999" placeholder="600" aria-label="calories expended">
+    <input type="number" min="0" max="9999" placeholder="600 calories" aria-label="calories expended">
   </form>
 
-  <div>0 гр</div>
+  <div>0 gram</div>
 </section>
 
 <section class="calories-burned">
   <form action="#" method="post">
-    <input type="number" min="0" max="999" placeholder="30" aria-label="fat expended">
+    <input type="number" min="0" max="999" placeholder="30 gram" aria-label="fat expended">
   </form>
 
-  <div>0 калорий</div>
+  <div>0 calories</div>
 </section>
 
 <script>
@@ -90,16 +90,15 @@
     inputSelector: '.fat-burned input',
     outputSelector: '.fat-burned div',
     calculateFunction: calculateBurnedFat,
-    unit: 'гр'
+    unit: 'gram'
   });
 
   setupInputHandler({
     inputSelector: '.calories-burned input',
     outputSelector: '.calories-burned div',
     calculateFunction: calculateCaloriesToBurnFat,
-    unit: 'калорий'
+    unit: 'calories'
   });
-
 </script>
 </body>
 </html>
